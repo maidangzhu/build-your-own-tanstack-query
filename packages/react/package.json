@@ -1,5 +1,5 @@
 {
-  "name": "@tanstack-query/react",
+  "name": "@the-tanstack-query/react",
   "version": "1.0.0",
   "description": "React adapter for TanStack Query",
   "main": "./dist/index.js",
@@ -16,7 +16,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@tanstack-query/core": "workspace:*"
+    "@the-tanstack-query/core": "workspace:*"
   },
   "peerDependencies": {
     "react": ">=16.8.0"

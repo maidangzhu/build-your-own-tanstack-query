@@ -1,5 +1,5 @@
 {
-  "name": "@tanstack-query/core",
+  "name": "@the-tanstack-query/core",
   "version": "1.0.0",
   "description": "Core implementation of TanStack Query",
   "main": "./dist/index.js",
