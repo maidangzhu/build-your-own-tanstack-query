@@ -1,0 +1,30 @@
+{
+  "name": "@tanstack-query/react",
+  "version": "1.0.0",
+  "description": "React adapter for TanStack Query",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "type-check": "tsc --noEmit"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@tanstack-query/core": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.0",
+    "react": "^18.0.0",
+    "tsup": "workspace:*",
+    "typescript": "workspace:*"
+  }
+} 

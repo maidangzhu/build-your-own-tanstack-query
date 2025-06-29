@@ -1,0 +1,22 @@
+{
+  "name": "@tanstack-query/core",
+  "version": "1.0.0",
+  "description": "Core implementation of TanStack Query",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "type-check": "tsc --noEmit"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "tsup": "workspace:*",
+    "typescript": "workspace:*"
+  }
+} 
