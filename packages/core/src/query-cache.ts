@@ -1,4 +1,6 @@
-import type { Query } from "./types"
+import type { QueryOptions } from "./types"
+import { hashKey } from "./utils"
+import { Query } from "./query"
 
 // queryCache.ts
 export class QueryCache {
@@ -22,7 +24,7 @@ export class QueryCache {
   }
 
   // 构建 `Query` 实例
-  build(options: any) {
+  build(options: QueryOptions) {
     const queryKey = options.queryKey
     const queryHash = hashKey(queryKey)
     let query = this.get(queryHash)

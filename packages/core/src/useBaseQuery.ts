@@ -1,23 +1,20 @@
 // useBaseQuery.ts
 import { useState, useEffect, useSyncExternalStore, useCallback } from 'react'
-import { useQueryClient } from './QueryClientProvider'
 import { QueryObserver } from './queryObserver'
-import { UseBaseQueryResult, UseBaseQueryOptions } from './types'
-
-export type QueryKey = ReadonlyArray<unknown>
+import { UseBaseQueryResult, UseBaseQueryOptions, QueryKey } from './types'
+import type { QueryClient } from './query-client'
 
 export function useBaseQuery<
   TError = Error,
   TData = unknown,
   TQueryKey extends QueryKey = QueryKey,
 >(
+  client: QueryClient,
   options: UseBaseQueryOptions<TData, TQueryKey>,
 ): UseBaseQueryResult<TData, TError> {
-  // 通过 hook 拿到 `QueryClient` 实例
-  const client = useQueryClient()
   // 在整个组件生命周期中保持 `QueryObserver` 唯一
   const [observer] = useState(
-    () => new QueryObserver<TError, TData, TQueryKey>(client, options),
+    () => new QueryObserver<TData, TError, TQueryKey>(client, options),
   )
 
   // 获取查询结果
@@ -25,7 +22,7 @@ export function useBaseQuery<
 
   useSyncExternalStore(
     useCallback(
-      (onStoreChange) => {
+      (onStoreChange: () => void) => {
         // 订阅，为了当状态更新时通知组件重新渲染
         const unsubscribe = observer.subscribe(onStoreChange)
         return unsubscribe
@@ -38,8 +35,9 @@ export function useBaseQuery<
   )
 
   useEffect(() => {
-    // 发起请求
+    // 更新选项并发起请求
     observer.setOptions(options)
+    observer.fetchOptimistic()
   }, [options, observer])
 
   return result
