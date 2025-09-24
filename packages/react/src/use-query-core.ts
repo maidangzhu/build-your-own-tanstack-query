@@ -1,7 +1,6 @@
 // useQuery.ts
-import { QueryKey, UseBaseQueryOptions, UseBaseQueryResult } from './types'
-import { useBaseQuery } from './useBaseQuery'
-import type { QueryClient } from './query-client'
+import { QueryKey, UseBaseQueryOptions, UseBaseQueryResult, QueryClient } from '@the-tanstack-query/core'
+import { useBaseQuery } from './use-base-query'
 
 export function useQuery<
   TError = Error, // `useQuery` 返回的 `error` 的类型

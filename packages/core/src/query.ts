@@ -9,6 +9,7 @@ export class Query<TData = unknown, TError = Error> {
   public state: QueryState<TData, TError>
   private options: QueryOptions<TData>
   private observers: Set<() => void> = new Set()
+  private lastResult: any = null
 
   constructor({
     queryKey,
@@ -69,6 +70,8 @@ export class Query<TData = unknown, TError = Error> {
    * 通知所有观察者状态变化
    */
   private notify(): void {
+    // 清除缓存的结果，因为状态已经改变
+    this.lastResult = null
     this.observers.forEach(observer => observer())
   }
 
@@ -76,14 +79,33 @@ export class Query<TData = unknown, TError = Error> {
    * 获取当前查询结果
    */
   getResult() {
-    return {
+    const currentResult = {
       data: this.state.data,
       error: this.state.error,
       isLoading: this.state.status === 'pending',
       isError: this.state.status === 'error',
       isSuccess: this.state.status === 'success',
       isFetching: this.state.isFetching,
+      status: this.state.status,
       refetch: () => this.fetch()
     }
+
+    // 如果结果没有实际变化，返回缓存的结果以保持引用稳定性
+    if (this.lastResult) {
+      if (
+        this.lastResult.data === currentResult.data &&
+        this.lastResult.error === currentResult.error &&
+        this.lastResult.isLoading === currentResult.isLoading &&
+        this.lastResult.isError === currentResult.isError &&
+        this.lastResult.isSuccess === currentResult.isSuccess &&
+        this.lastResult.isFetching === currentResult.isFetching &&
+        this.lastResult.status === currentResult.status
+      ) {
+        return this.lastResult
+      }
+    }
+
+    this.lastResult = currentResult
+    return currentResult
   }
 } 
