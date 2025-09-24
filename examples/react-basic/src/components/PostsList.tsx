@@ -10,7 +10,7 @@ const PostsList: React.FC = () => {
     isError,
     error,
     refetch
-  } = useQuery<Post[], Error>({
+  } = useQuery({
     queryKey: ['posts'],
     queryFn: fetchPosts
   })
