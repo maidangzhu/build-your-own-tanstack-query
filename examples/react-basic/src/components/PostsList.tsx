@@ -1,6 +1,6 @@
 import React from 'react'
 import { useQuery } from '@the-tanstack-query/react'
-import { fetchPosts, Post } from '../api/posts'
+import { fetchPosts } from '../api/posts'
 
 const PostsList: React.FC = () => {
   // 使用 useQuery 获取文章列表

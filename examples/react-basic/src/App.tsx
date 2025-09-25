@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
-import { useQueryClient } from '@the-tanstack-query/react'
 import PostsList from './components/PostsList'
-// import PostDetail from './components/PostDetail'
 import CreatePost from './components/CreatePost'
 import { Post } from './api/posts'
 
@@ -9,18 +7,6 @@ type View = 'list' | 'detail' | 'create'
 
 const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<View>('list')
-  const [selectedPostId, setSelectedPostId] = useState<number | null>(null)
-  const queryClient = useQueryClient()
-
-  const handleViewPost = (postId: number) => {
-    setSelectedPostId(postId)
-    setCurrentView('detail')
-  }
-
-  const handleBackToList = () => {
-    setCurrentView('list')
-    setSelectedPostId(null)
-  }
 
   const handlePostCreated = (post: Post) => {
     // 文章创建成功后，使查询缓存失效，触发重新获取
@@ -92,13 +78,6 @@ const App: React.FC = () => {
           </div>
         )}
 
-        {/* {currentView === 'detail' && selectedPostId && (
-          <PostDetail
-            postId={selectedPostId}
-            onBack={handleBackToList}
-          />
-        )} */}
-
         {currentView === 'create' && (
           <CreatePost onSuccess={handlePostCreated} />
         )}
@@ -109,7 +88,7 @@ const App: React.FC = () => {
         <h4 style={{ marginBottom: '12px', color: '#333' }}>调试信息</h4>
         <div style={{ fontSize: '14px', color: '#666' }}>
           <p><strong>当前视图:</strong> {currentView}</p>
-          {selectedPostId && <p><strong>选中的文章 ID:</strong> {selectedPostId}</p>}
+          {/* {selectedPostId && <p><strong>选中的文章 ID:</strong> {selectedPostId}</p>} */}
           <p><strong>QueryClient:</strong> 已初始化</p>
           <p style={{ marginTop: '12px' }}>
             打开浏览器开发者工具的 Console 标签页查看更多调试信息。
